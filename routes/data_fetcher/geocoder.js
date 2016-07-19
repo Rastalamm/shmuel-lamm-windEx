@@ -12,10 +12,10 @@ var geocoder = NodeGeocoder(options);
 // input address. output address and x/y coordinates
 function findCoordinates(address) { geocoder.geocode(address)
   .then(function(res) {
-    let data = {}
+    let data = {'coordinates': []}
     data['address'] = res[0].formattedAddress
-    data['latitude'] = res[0].latitude
-    data['longitude'] = res[0].longitude
+    data['coordinates']['latitude'] = res[0].latitude
+    data['coordinates']['longitude'] = res[0].longitude
     console.log(data);
     return data
   })
