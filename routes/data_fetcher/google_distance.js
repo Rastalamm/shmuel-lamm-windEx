@@ -1,6 +1,5 @@
 var Promise = require("bluebird")
 const request = require('request')
-var util = require('util')
 var keys = require('../../keys.js')
 
 var createUrl = (startCoord, finishCoord) => {
@@ -50,4 +49,10 @@ var runGoogleDistance = (startCoord, finishCoord) => {
   })
 }
 
-runGoogleDistance([ 40.7052799, -74.0140249 ], [ 40.7484404, -73.9856554 ])
+module.exports = runGoogleDistance
+// runGoogleDistance([ 40.7052799, -74.0140249 ], [ 40.7484404, -73.9856554 ])
+// running the function above for 11 broadway to 350 5th gives the return:
+// { distance: 7176,
+//   distanceInWords: '4.5 mi',
+//   duration: 1682,
+//   durationInWords: '28 mins' }
