@@ -2,15 +2,15 @@
 var NodeGeocoder = require('node-geocoder');
 var options = {provider: 'google'};
 var geocoder = NodeGeocoder(options);
-var geolib = require('geolib')
+var LatLon = require('geodesy').LatLonSpherical
 var Promise = require("bluebird");
 var data = []
 
 var formatData = function(num, res) {
-  data[num] = {'coordinates': {}}
+  data[num] = {'coordinates': []}
   data[num]['address'] = res[0].formattedAddress
-  data[num]['coordinates']['latitude'] = res[0].latitude
-  data[num]['coordinates']['longitude'] = res[0].longitude
+  data[num]['coordinates'][0] = res[0].latitude
+  data[num]['coordinates'][1] = res[0].longitude
 }
 
 var getCoordWithBluebird = (addresses) => {
@@ -35,22 +35,24 @@ var getCoordWithBluebird = (addresses) => {
 var runGeocoder = (start, finish) => {
   getCoordWithBluebird([start, finish])
   .then(function(data) {
-    data["midpoint"] = geolib.getCenter([
-      data[0].coordinates,
-      data[1].coordinates
-    ]);
+    let p1 = new LatLon(data[0].coordinates[0], data[0].coordinates[1])
+    let p2 = new LatLon(data[1].coordinates[0], data[1].coordinates[1])
+    // subtract 180 to get ready for conversion to radians
+    data["bearing"] = p1.bearingTo(p2) - 180
+    data["midpoint"] = p1.midpointTo(p2);
     console.log(data)
   })
   .catch(function(error) {
-    console.log('Geocoder error through bluebird:' + error)
+    console.log('Geocoder error through bluebird: ' + error)
   })
 }
 
 module.exports = runGeocoder
-// runGeocoder('29 Av. des Champs-Élysées', '350 5th Ave')
+// runGeocoder('11 Broadway, New York', '350 5th Ave')
 // retrun of line above is:
-// [ { coordinates: { latitude: 48.869384, longitude: 2.3071868 },
-//     address: '29 Av. des Champs-Élysées, 75008 Paris, France' },
-//   { coordinates: { latitude: 40.7484404, longitude: -73.9856554 },
+// [ { coordinates: [ 40.7052799, -74.0140249 ],
+//     address: '11 Broadway, New York, NY 10004, USA' },
+//   { coordinates: [ 40.7484404, -73.9856554 ],
 //     address: 'Empire State Building, 350 5th Ave, New York, NY 10118, USA' },
-//   midpoint: { latitude: '51.588701', longitude: '-39.009241' } ]
+//   bearing: -153.5303246257672,
+//   midpoint: LatLon { lat: 40.726861018183236, lon: -73.99984474975099 } ]
