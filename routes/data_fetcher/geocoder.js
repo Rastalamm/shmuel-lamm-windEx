@@ -2,26 +2,41 @@
 var NodeGeocoder = require('node-geocoder');
 var options = {provider: 'google'};
 var geocoder = NodeGeocoder(options);
+var geolib = require('geolib')
+var Promise = require("bluebird");
+var data = []
 
-// use npm geolib to find coordinate midpoints
-var geoLib = require('geolib')
-
-// input address. output address and x/y coordinates
-var findCoordinates = (address) => { geocoder.geocode(address)
-  .then((res) => {
-    let data = {'coordinates': []}
-    data['address'] = res[0].formattedAddress
-    data['coordinates']['latitude'] = res[0].latitude
-    data['coordinates']['longitude'] = res[0].longitude
-    console.log(data);
-    return data
-  })
-  .catch((err) => {
-    console.log(err);
-    return err
-  });
+var formatData = function(num, res) {
+  data[num] = {'coordinates': {}}
+  data[num]['address'] = res[0].formattedAddress
+  data[num]['coordinates']['latitude'] = res[0].latitude
+  data[num]['coordinates']['longitude'] = res[0].longitude
 }
 
-// place this in the runner and substitute input with form params
-findCoordinates('29 champs elysée paris')
-findCoordinates('350 Fifth Avenue')
+var getCoordWithBluebird = (addresses) => {
+  return new Promise(function(resolve, reject) {
+
+    geocoder.geocode(addresses[0], function(err, res) {
+      if (err) {reject(err)}
+      else {
+        formatData(0, res)
+      }
+    })
+    geocoder.geocode(addresses[1], function(err, res) {
+      if (err) {reject(err)}
+      else {
+        formatData(1, res)
+        resolve(data)
+      }
+    })
+  })
+}
+
+getCoordWithBluebird(['29 champs elysée paris', '350 5th avenue'])
+.then(function(data) {
+  data["midpoint"] = geolib.getCenter([
+    data[0].coordinates,
+    data[1].coordinates
+  ]);
+  console.log(data)
+})
