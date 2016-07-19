@@ -7,8 +7,8 @@ var geocoder = NodeGeocoder(options);
 var geoLib = require('geolib')
 
 // input address. output address and x/y coordinates
-function findCoordinates(address) { geocoder.geocode(address)
-  .then(function(res) {
+var findCoordinates = (address) => { geocoder.geocode(address)
+  .then((res) => {
     let data = {'coordinates': []}
     data['address'] = res[0].formattedAddress
     data['coordinates']['latitude'] = res[0].latitude
@@ -16,7 +16,7 @@ function findCoordinates(address) { geocoder.geocode(address)
     console.log(data);
     return data
   })
-  .catch(function(err) {
+  .catch((err) => {
     console.log(err);
     return err
   });
