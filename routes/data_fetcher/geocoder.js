@@ -1,13 +1,10 @@
 // use npm geocoder to find coordinates
 var NodeGeocoder = require('node-geocoder');
+var options = {provider: 'google'};
+var geocoder = NodeGeocoder(options);
+
 // use npm geolib to find coordinate midpoints
 var geoLib = require('geolib')
-// options for geocoder
-var options = {
-  provider: 'google'
-};
-
-var geocoder = NodeGeocoder(options);
 
 // input address. output address and x/y coordinates
 function findCoordinates(address) { geocoder.geocode(address)
