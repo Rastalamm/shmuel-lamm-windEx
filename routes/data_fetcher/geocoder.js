@@ -46,9 +46,9 @@ var runGeocoder = (start, finish) => {
   })
 }
 
-runGeocoder('29 Av. des Champs-Élysées', '350 5th Ave')
-
-// return of is:
+module.exports = runGeocoder
+// runGeocoder('29 Av. des Champs-Élysées', '350 5th Ave')
+// retrun of line above is:
 // [ { coordinates: { latitude: 48.869384, longitude: 2.3071868 },
 //     address: '29 Av. des Champs-Élysées, 75008 Paris, France' },
 //   { coordinates: { latitude: 40.7484404, longitude: -73.9856554 },
