@@ -32,11 +32,25 @@ var getCoordWithBluebird = (addresses) => {
   })
 }
 
-getCoordWithBluebird(['29 champs elysée paris', '350 5th avenue'])
-.then(function(data) {
-  data["midpoint"] = geolib.getCenter([
-    data[0].coordinates,
-    data[1].coordinates
-  ]);
-  console.log(data)
-})
+var runGeocoder = (start, finish) => {
+  getCoordWithBluebird([start, finish])
+  .then(function(data) {
+    data["midpoint"] = geolib.getCenter([
+      data[0].coordinates,
+      data[1].coordinates
+    ]);
+    console.log(data)
+  })
+  .catch(function(error) {
+    console.log('Geocoder error through bluebird:' + error)
+  })
+}
+
+runGeocoder('29 Av. des Champs-Élysées', '350 5th Ave')
+
+// return of is:
+// [ { coordinates: { latitude: 48.869384, longitude: 2.3071868 },
+//     address: '29 Av. des Champs-Élysées, 75008 Paris, France' },
+//   { coordinates: { latitude: 40.7484404, longitude: -73.9856554 },
+//     address: 'Empire State Building, 350 5th Ave, New York, NY 10118, USA' },
+//   midpoint: { latitude: '51.588701', longitude: '-39.009241' } ]
