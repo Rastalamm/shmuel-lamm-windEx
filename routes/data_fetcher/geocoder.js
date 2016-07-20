@@ -31,9 +31,9 @@ var runGeocoder = (start, finish, fn) => {
     let p1 = new LatLon(data[0].coordinates[0], data[0].coordinates[1])
     let p2 = new LatLon(data[1].coordinates[0], data[1].coordinates[1])
     // subtract 180 for future conversion to radians
-    data["bearingForRadians"] = p1.bearingTo(p2) - 180
+    data[2] = {}
+    data[2]["bearingForRadians"] = p1.bearingTo(p2) - 180
     data["midpoint"] = p1.midpointTo(p2);
-    // console.log(data)
     fn(null, data)
   })
   .catch(function(error) {

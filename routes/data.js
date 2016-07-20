@@ -6,7 +6,6 @@ var util = require('util')
 /* GET users listing. */
 router.post('/', function(req, res, next) {
   let locations = req.body
-  console.log(locations)
   runSendApiData(locations.start, locations.finish, res)
   // console.log(tripCalculator('11 Broadway, New York', '350 5th Ave'))
   // res.send('respond with a resource');
