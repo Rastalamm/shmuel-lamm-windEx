@@ -30,14 +30,17 @@
             <div class="form-row">
                 <label>
                     <span>Ending Location</span>
-                    <input type="text" name="name" id='start' placeholder='address or landmark'>
+                    <input type="text" name="name" id='finish' placeholder='address or landmark'>
                 </label>
             </div>
 
             <div class="form-row">
-                <button type="submit">Get Wind Adjustments</button>
+                <button type="submit" id='get-trip-data'>Get Wind Adjustments</button>
             </div>
 
+          {{> data_display}}
         </form>
 
     </div>
+
+    {{> table_display}}

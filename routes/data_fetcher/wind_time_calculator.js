@@ -34,7 +34,7 @@ var runWindCalculator = (start, finish) => {
   })
 
   .then((data) => {
-    console.log(data)
+    return data
   })
 
   .catch(function(error) {
@@ -89,7 +89,8 @@ var ending = (number) => {
   return (number > 1 || number == 0) ? 's' : '';
 }
 
-runWindCalculator('11 Broadway, New York', '350 5th Ave')
+module.exports = runWindCalculator
+// runWindCalculator('11 Broadway, New York', '350 5th Ave')
 // // result from running the above function call should be something like:
 // { geoData:
 //    [ { coordinates: [Object],
