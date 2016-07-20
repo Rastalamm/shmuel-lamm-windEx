@@ -1,6 +1,6 @@
 var Promise = require("bluebird")
 const request = require('request')
-var keys = require('../../keys.js')
+// var keys = require('../../keys.js')
 
 
 var getWeatherWithBluebird = (midpointCoord) => {
@@ -32,7 +32,7 @@ var createUrl = (midpointCoord) => {
   let latitude = midpointCoord[0]
   let longitude = '&lon=' + midpointCoord[1]
   let units = '&units=imperial'
-  let apiKey = '&appid=' + keys.openWeatherApiKey
+  let apiKey = '&appid=' + process.env.openWeatherApiKey
   return baseUrl + latitude + longitude + units + apiKey
 }
 
