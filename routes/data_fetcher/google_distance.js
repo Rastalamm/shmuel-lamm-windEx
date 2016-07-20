@@ -1,6 +1,6 @@
 var Promise = require("bluebird")
 const request = require('request')
-var keys = require('../../keys.js')
+// var keys = require('../../keys.js')
 
 
 var getDistWithBluebird = (startCoord, finishCoord) => {
@@ -32,7 +32,7 @@ var createUrl = (startCoord, finishCoord) => {
   let formatStart = '&origins=' + startCoord.join(",")
   let formatFinish = '&destinations=' + finishCoord.join(",")
   let transMode = '&mode=bicycling'
-  let apiKey = '&key=' + keys.googleDistanceApiKey
+  let apiKey = '&key=' + process.env.googleDistanceApiKey
   return baseUrl + formatStart + formatFinish + transMode + apiKey
 }
 
