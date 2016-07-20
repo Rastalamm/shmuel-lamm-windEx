@@ -15,10 +15,10 @@ var formatReturnData = (body) => {
   let parser = JSON.parse(body)
   let parsedBody = parser.rows[0].elements[0]
   let matrixData = {}
-  //distance is in meters
+  //distance value in meters
   matrixData['distance'] = parsedBody.distance.value
   matrixData['distanceInWords'] =parsedBody.distance.text
-  // time in seconds
+  // time value in seconds
   matrixData['duration'] = parsedBody.duration.value
   matrixData['durationInWords'] = parsedBody.duration.text
   return matrixData
@@ -38,11 +38,11 @@ var getDistWithBluebird = (startCoord, finishCoord) => {
   })
 }
 
-var runGoogleDistance = (startCoord, finishCoord) => {
+var runGoogleDistance = (startCoord, finishCoord, fn) => {
   getDistWithBluebird(startCoord, finishCoord)
   .then(function(body) {
     let matrixData = formatReturnData(body)
-    console.log(matrixData)
+    fn(matrixData)
   })
   .catch(function(error) {
     console.log('Google Distance Matrix error through bluebird: ' + error)

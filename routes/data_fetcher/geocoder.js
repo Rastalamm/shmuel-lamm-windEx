@@ -32,15 +32,16 @@ var getCoordWithBluebird = (addresses) => {
   })
 }
 
-var runGeocoder = (start, finish) => {
+var runGeocoder = (start, finish, fn) => {
   getCoordWithBluebird([start, finish])
   .then(function(data) {
     let p1 = new LatLon(data[0].coordinates[0], data[0].coordinates[1])
     let p2 = new LatLon(data[1].coordinates[0], data[1].coordinates[1])
     // subtract 180 for future conversion to radians
-    data["bearing"] = p1.bearingTo(p2) - 180
+    data["bearingForRadians"] = p1.bearingTo(p2) - 180
     data["midpoint"] = p1.midpointTo(p2);
-    console.log(data)
+    // console.log(data)
+    fn(null, data)
   })
   .catch(function(error) {
     console.log('Geocoder error through bluebird: ' + error)

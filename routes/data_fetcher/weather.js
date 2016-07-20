@@ -34,11 +34,11 @@ var getWeatherWithBluebird = (midpointCoord) => {
   })
 }
 
-var runOpenWeather = (midpointCoord) => {
+var runOpenWeather = (midpointCoord, fn) => {
   getWeatherWithBluebird(midpointCoord)
   .then((body) => {
     let windData = formatReturnData(body)
-    console.log(windData)
+    fn(windData)
   })
   .catch(function(error) {
     console.log('Open Weather error through bluebird: ' + error)
