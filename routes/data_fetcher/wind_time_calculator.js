@@ -13,7 +13,7 @@ var calculateWind = (start, finish) => {
   })
 }
 
-var runWindCalculator = (start, finish) => {
+var runWindCalculator = (start, finish, fn) => {
   calculateWind(start, finish)
 
   .then((data) => {
@@ -34,7 +34,7 @@ var runWindCalculator = (start, finish) => {
   })
 
   .then((data) => {
-    return data
+    fn(null, data)
   })
 
   .catch(function(error) {
