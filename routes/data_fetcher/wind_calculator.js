@@ -58,14 +58,31 @@ var adjustedTravelTime = (travelDistanceMiles, travelTimeHours, headwindMPH, dat
   let assumedSpeed = (travelDistanceMiles / travelTimeHours)
   let adjustedSpeed = assumedSpeed - (headwindMPH * 0.37)
   let adjustedTime = travelDistanceMiles / adjustedSpeed
+  let durationInWords = minutesToString(round(adjustedTime) * 60)
   data['adjustedTravel']['non-adjustedSpeed'] = round(assumedSpeed)
   data['adjustedTravel']['adjustedTime'] = round(adjustedTime)
   data['adjustedTravel']['adjustedSpeed'] = round(adjustedSpeed)
+  data['adjustedTravel']['durationInWords'] = durationInWords
   return data
 }
 
 var round = (input) => {
   return Math.ceil(input * 100) / 100
+}
+
+var minutesToString = (totalMinutes) => {
+  let minutes = totalMinutes % 60
+  let hours = (totalMinutes - minutes)/60
+  if (hours > 0) {
+    var formattedTime = `${hours} hour${ending(hours)} and ${minutes} minute${ending(minutes)}`
+  } else {
+    var formattedTime = `${minutes} minute${ending(minutes)}`
+  }
+  return formattedTime
+}
+
+var ending = (number) => {
+  return (number > 1 || number == 0) ? 's' : '';
 }
 
 runWindCalculator('11 Broadway, New York', '350 5th Ave')
