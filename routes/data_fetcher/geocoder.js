@@ -50,7 +50,7 @@ var formatData = function(num, res) {
 
 module.exports = runGeocoder
 // runGeocoder('11 Broadway, New York', '350 5th Ave')
-// retrun of line above is:
+// return of function call above is:
 // [ { coordinates: [ 40.7052799, -74.0140249 ],
 //     address: '11 Broadway, New York, NY 10004, USA' },
 //   { coordinates: [ 40.7484404, -73.9856554 ],

@@ -7,7 +7,7 @@ var util = require('util')
 router.post('/', function(req, res, next) {
   let locations = req.body
   console.log(locations)
-  runSendApiData(locations.start, locations.finish)
+  runSendApiData(locations.start, locations.finish, res)
   // console.log(tripCalculator('11 Broadway, New York', '350 5th Ave'))
   // res.send('respond with a resource');
 });
@@ -23,7 +23,7 @@ var sendApiDAta = (startAddress, finishAddress) => {
   })
 }
 
-var runSendApiData = (startAddress, finishAddress) => {
+var runSendApiData = (startAddress, finishAddress, res) => {
   sendApiDAta(startAddress, finishAddress)
 
   .then((data) => {

@@ -78,9 +78,9 @@ var minutesToString = (totalMinutes) => {
   let minutes = totalMinutes % 60
   let hours = (totalMinutes - minutes)/60
   if (hours > 0) {
-    var formattedTime = `${hours} hour${ending(hours)} and ${minutes} minute${ending(minutes)}`
+    var formattedTime = `${hours} hour${ending(hours)} and ${round(minutes)} minute${ending(minutes)}`
   } else {
-    var formattedTime = `${minutes} minute${ending(minutes)}`
+    var formattedTime = `${round(minutes)} minute${ending(minutes)}`
   }
   return formattedTime
 }
