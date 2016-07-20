@@ -2,28 +2,6 @@ var Promise = require("bluebird")
 const request = require('request')
 var keys = require('../../keys.js')
 
-var createUrl = (startCoord, finishCoord) => {
-  let baseUrl = 'https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial'
-  let formatStart = '&origins=' + startCoord.join(",")
-  let formatFinish = '&destinations=' + finishCoord.join(",")
-  let transMode = '&mode=bicycling'
-  let apiKey = '&key=' + keys.googleDistanceApiKey
-  return baseUrl + formatStart + formatFinish + transMode + apiKey
-}
-
-var formatReturnData = (body) => {
-  let parser = JSON.parse(body)
-  let parsedBody = parser.rows[0].elements[0]
-  let matrixData = {}
-  //distance value in meters
-  matrixData['distance'] = parsedBody.distance.value
-  matrixData['distanceInWords'] =parsedBody.distance.text
-  // time value in seconds
-  matrixData['duration'] = parsedBody.duration.value
-  matrixData['durationInWords'] = parsedBody.duration.text
-  return matrixData
-}
-
 
 var getDistWithBluebird = (startCoord, finishCoord) => {
   return new Promise(function(resolve, reject) {
@@ -47,6 +25,28 @@ var runGoogleDistance = (startCoord, finishCoord, fn) => {
   .catch(function(error) {
     console.log('Google Distance Matrix error through bluebird: ' + error)
   })
+}
+
+var createUrl = (startCoord, finishCoord) => {
+  let baseUrl = 'https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial'
+  let formatStart = '&origins=' + startCoord.join(",")
+  let formatFinish = '&destinations=' + finishCoord.join(",")
+  let transMode = '&mode=bicycling'
+  let apiKey = '&key=' + keys.googleDistanceApiKey
+  return baseUrl + formatStart + formatFinish + transMode + apiKey
+}
+
+var formatReturnData = (body) => {
+  let parser = JSON.parse(body)
+  let parsedBody = parser.rows[0].elements[0]
+  let matrixData = {}
+  //distance value in meters
+  matrixData['distance'] = parsedBody.distance.value
+  matrixData['distanceInWords'] =parsedBody.distance.text
+  // time value in seconds
+  matrixData['duration'] = parsedBody.duration.value
+  matrixData['durationInWords'] = parsedBody.duration.text
+  return matrixData
 }
 
 module.exports = runGoogleDistance

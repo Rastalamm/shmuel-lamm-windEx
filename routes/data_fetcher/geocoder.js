@@ -6,13 +6,6 @@ var LatLon = require('geodesy').LatLonSpherical
 var Promise = require("bluebird");
 var data = []
 
-var formatData = function(num, res) {
-  data[num] = {'coordinates': []}
-  data[num]['address'] = res[0].formattedAddress
-  data[num]['coordinates'][0] = res[0].latitude
-  data[num]['coordinates'][1] = res[0].longitude
-}
-
 var getCoordWithBluebird = (addresses) => {
   return new Promise(function(resolve, reject) {
 
@@ -46,6 +39,13 @@ var runGeocoder = (start, finish, fn) => {
   .catch(function(error) {
     console.log('Geocoder error through bluebird: ' + error)
   })
+}
+
+var formatData = function(num, res) {
+  data[num] = {'coordinates': []}
+  data[num]['address'] = res[0].formattedAddress
+  data[num]['coordinates'][0] = res[0].latitude
+  data[num]['coordinates'][1] = res[0].longitude
 }
 
 module.exports = runGeocoder

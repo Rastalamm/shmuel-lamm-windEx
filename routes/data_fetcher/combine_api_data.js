@@ -18,7 +18,7 @@ var combineData = (start, finish) => {
   })
 }
 
-var runCombineData = (start, finish) =>{
+var runCombineData = (start, finish, fn) =>{
   combineData(start, finish)
 
   .then((data) => {
@@ -32,7 +32,7 @@ var runCombineData = (start, finish) =>{
 
       weatherData([lat, lon], (body) => {
         data["windData"] = body
-        console.log(data)
+        fn(null, data)
       })
     })
   })

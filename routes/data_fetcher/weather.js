@@ -3,24 +3,6 @@ const request = require('request')
 var keys = require('../../keys.js')
 
 
-var createUrl = (midpointCoord) => {
-  let baseUrl = 'http://api.openweathermap.org/data/2.5/weather?lat='
-  let latitude = midpointCoord[0]
-  let longitude = '&lon=' + midpointCoord[1]
-  let units = '&units=imperial'
-  let apiKey = '&appid=' + keys.openWeatherApiKey
-  return baseUrl + latitude + longitude + units + apiKey
-}
-
-var formatReturnData = (body) => {
-  let parser = JSON.parse(body)
-  windData = []
-  windData['windHeading'] = parser.wind.deg
-  windData['windSpeedMPH'] = parser.wind.speed
-  return windData
-}
-
-
 var getWeatherWithBluebird = (midpointCoord) => {
   return new Promise(function(resolve, reject) {
     let url = createUrl(midpointCoord)
@@ -43,6 +25,23 @@ var runOpenWeather = (midpointCoord, fn) => {
   .catch(function(error) {
     console.log('Open Weather error through bluebird: ' + error)
   })
+}
+
+var createUrl = (midpointCoord) => {
+  let baseUrl = 'http://api.openweathermap.org/data/2.5/weather?lat='
+  let latitude = midpointCoord[0]
+  let longitude = '&lon=' + midpointCoord[1]
+  let units = '&units=imperial'
+  let apiKey = '&appid=' + keys.openWeatherApiKey
+  return baseUrl + latitude + longitude + units + apiKey
+}
+
+var formatReturnData = (body) => {
+  let parser = JSON.parse(body)
+  windData = []
+  windData['windHeading'] = parser.wind.deg
+  windData['windSpeedMPH'] = parser.wind.speed
+  return windData
 }
 
 module.exports = runOpenWeather
