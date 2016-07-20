@@ -1,2 +1,43 @@
-<h1>{{title}}</h1>
+<!-- <h1>{{title}}</h1>
 <p>Welcome to {{title}}</p>
+ -->
+
+
+    <div class="main-content">
+
+        <!-- You only need this form and the form-basic.css -->
+
+        <form class="form-basic" method="post" action="#">
+
+            <div class="form-title-row">
+                <h1>WindEx for Bikers and Pilots</h1>
+            </div>
+
+            <div class="form-title-row">
+              <h3>Welcome! Enter your start and finishing location and we'll use Google Maps and Open Weather to: </h3>
+              <h3>For bikers: calculate the wind's impact on the duration and speed of your ride</h3>
+            <h3>For pilots: calculate the ground-level crosswind/headwind components for your flight</h3>
+            </div>
+
+
+            <div class="form-row">
+                <label>
+                    <span>Starting Location</span>
+                    <input type="text" name="name" id='start' placeholder='address or landmark'>
+                </label>
+            </div>
+
+            <div class="form-row">
+                <label>
+                    <span>Ending Location</span>
+                    <input type="text" name="name" id='start' placeholder='address or landmark'>
+                </label>
+            </div>
+
+            <div class="form-row">
+                <button type="submit">Get Wind Adjustments</button>
+            </div>
+
+        </form>
+
+    </div>
