@@ -38,7 +38,7 @@ var createUrl = (midpointCoord) => {
 
 var formatReturnData = (body) => {
   let parser = JSON.parse(body)
-  windData = []
+  windData = {}
   windData['windHeading'] = parser.wind.deg
   windData['windSpeedMPH'] = parser.wind.speed
   return windData

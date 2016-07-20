@@ -19,7 +19,7 @@ var runWindCalculator = (start, finish, fn) => {
   .then((data) => {
     let windSpeed = data.windData.windSpeedMPH
     let windHeading = data.windData.windHeading
-    let tripBearing = data.geoData.bearingForRadians
+    let tripBearing = data.geoData[2].bearingForRadians
     data['windComponents'] = {}
     return headAndCrossWinds(windSpeed, windHeading, tripBearing, data)
   })
@@ -78,9 +78,9 @@ var minutesToString = (totalMinutes) => {
   let minutes = totalMinutes % 60
   let hours = (totalMinutes - minutes)/60
   if (hours > 0) {
-    var formattedTime = `${hours} hour${ending(hours)} and ${round(minutes)} minute${ending(minutes)}`
+    var formattedTime = `${hours} hour${ending(hours)} and ${Math.round(minutes)} minute${ending(minutes)}`
   } else {
-    var formattedTime = `${round(minutes)} minute${ending(minutes)}`
+    var formattedTime = `${Math.round(minutes)} minute${ending(minutes)}`
   }
   return formattedTime
 }
