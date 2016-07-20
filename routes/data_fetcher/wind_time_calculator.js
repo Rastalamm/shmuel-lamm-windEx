@@ -36,6 +36,10 @@ var runWindCalculator = (start, finish) => {
   .then((data) => {
     console.log(data)
   })
+
+  .catch(function(error) {
+    console.log('Wind and Time Calculator error with bluebird: ' + error)
+  })
 }
 
 var headAndCrossWinds = (windSpeed, windHeading, tripBearing, data) => {
@@ -86,3 +90,23 @@ var ending = (number) => {
 }
 
 runWindCalculator('11 Broadway, New York', '350 5th Ave')
+// // result from running the above function call should be something like:
+// { geoData:
+//    [ { coordinates: [Object],
+//        address: '11 Broadway, New York, NY 10004, USA' },
+//      { coordinates: [Object],
+//        address: 'Empire State Building, 350 5th Ave, New York, NY 10118, USA' },
+//      bearingForRadians: -153.5303246257672,
+//      midpoint: LatLon { lat: 40.726861018183236, lon: -73.99984474975099 } ],
+//   distanceData:
+//    { distance: 7176,
+//      distanceInWords: '4.5 mi',
+//      duration: 1682,
+//      durationInWords: '28 mins' },
+//   windData: [ windHeading: 30, windSpeedMPH: 9.17 ],
+//   windComponents: { headwind: 9.16, crosswind: -0.56 },
+//   adjustedTravel:
+//    { 'non-adjustedSpeed': 9.55,
+//      adjustedTime: 0.73,
+//      adjustedSpeed: 6.16,
+//      durationInWords: '43.8 minutes' } }
