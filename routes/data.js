@@ -3,12 +3,11 @@ var router = express.Router();
 var Promise = require("bluebird")
 var tripCalculator = require('./data_fetcher/wind_time_calculator.js')
 var util = require('util')
-/* GET users listing. */
+
+
 router.post('/', function(req, res, next) {
   let locations = req.body
   runSendApiData(locations.start, locations.finish, res)
-  // console.log(tripCalculator('11 Broadway, New York', '350 5th Ave'))
-  // res.send('respond with a resource');
 });
 
 var sendApiDAta = (startAddress, finishAddress) => {
