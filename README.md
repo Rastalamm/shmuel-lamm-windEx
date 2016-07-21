@@ -23,6 +23,7 @@ $ npm install
 $ node ./bin/www
 ```
 Then navigate to http://localhost:3000/.
+It's also necessary to get an api key from Google Distance Matrix API and OpenWeather API and set them respectively in google_distance.js and weather.js.
 
 To use this site, simply enter your starting location and ending location. Then press 'Get Wind Adjustments'.
 The locations you enter can include any address or landmark such as:
